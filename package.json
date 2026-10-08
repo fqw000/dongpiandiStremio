@@ -1,0 +1,13 @@
+{
+  "name": "dongpiandiStremio",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "vercel-dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "test": "node health.js"
+  },
+  "devDependencies": {
+    "vercel": "^63.1.0"
+  }
+}
