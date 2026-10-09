@@ -147,38 +147,6 @@ async function handleCatalog(routeType, catalogId, extraPath, url) {
   return jsonResponse({ metas }, 300);
 }
 
-// /**
-//  * 处理 catalog 内的搜索请求
-//  *
-//  * 搜索结果按 kind 判定类型，与请求的 routeType 匹配后返回。
-//  * 不用 totalEpisodeCount 判断（电影也返回 1，不可靠）。
-//  *
-//  * @param {string} routeType - 'movie' | 'series'（来自 URL）
-//  * @param {string} catalogId - catalog id（如 dpd-movie）
-//  * @param {string} query - 搜索关键词
-//  */
-// async function handleCatalogSearch(routeType, catalogId, query) {
-//   const results = await searchVideos(query, 24);
-
-//   // ===== 过滤：电影只保留 kind='movie'，剧集保留其他 =====
-//   const filtered = results.filter(item => {
-//     return routeType === 'movie' ? item.isMovie === true : item.isMovie === false;
-//   });
-
-//   const metas = filtered.map(item => ({
-//     // 电影用影片级 id，剧集用集级 id
-//     id: item.isMovie ? `dpd_${item.vodId}` : `dpd_${item.vodId}:1:1`,
-//     type: item.isMovie ? 'movie' : 'series',
-//     name: item.vodName,
-//     poster: item.vodPic || '',
-//     releaseInfo: item.vodYear || '',
-//     description: item.vodRemarks || '',
-//   }));
-
-//   log.info(`search ok: "${query}" → ${metas.length} metas (routeType=${routeType}, raw=${results.length})`);
-//   return jsonResponse({ metas }, 300);
-// }
-
 /**
  * 处理 catalog 内的搜索请求
  *
@@ -309,6 +277,47 @@ async function handleMeta(routeType, rawEncodedId) {
 // ==========================================
 // Stream
 // ==========================================
+/**
+ * 生成一条"诊断 stream"
+ *
+ * 用途：所有异常/空结果场景统一返回它，让用户长按复制 url 拿到诊断信息。
+ * url 直接放原文（不编码），便于用户复制阅读。
+ *
+ * 用户操作：Stremio 里长按这条 stream → 复制 URL → 粘贴到记事本查看。
+ */
+function debugStream(parsed, routeType, reason, extra = {}) {
+  const sourceKind = parsed.originalSource || parsed.source || 'unknown';
+  const sourcePrefix = sourceKind === 'imdb' ? 'tt' : (sourceKind === 'dpd' ? 'dpd' : 'unk');
+  // const idValue = parsed.imdbId || parsed.vodId || 'unknown';
+  // 关键：优先用"用户原始请求的 ID"
+  // - originalSource=imdb → 用户输入的是 tt0109830，诊断应显示 tt0109830
+  // - originalSource=dpd  → 用户输入的是 dpd_av_xxx，诊断应显示 av_xxx
+  const idValue = sourceKind === 'imdb'
+    ? (parsed.imdbId || '?')
+    : (parsed.vodId || '?');
+  const season = parsed.season != null ? parsed.season : 1;
+  const episode = parsed.episode != null ? parsed.episode : 1;
+
+  const parts = [
+    `${sourcePrefix}|${idValue}`,
+    routeType,
+    `S${season}E${episode}`,
+    reason,
+  ];
+  if (Object.keys(extra).length > 0) {
+    parts.push(JSON.stringify(extra));
+  }
+  const debugInfo = parts.join(' | ');
+
+  log.warn(`[DebugStream] ${debugInfo}`);
+
+  return {
+    name: '懂片帝 · 诊断',
+    title: '⚠️ 无可用线路（长按复制 URL 查看详情）',
+    url: debugInfo,
+  };
+}
+
 
 async function handleStream(routeType, rawEncodedId) {
   if (CONFIG.ENABLE_STREAM === false) {
@@ -322,13 +331,15 @@ async function handleStream(routeType, rawEncodedId) {
   // ===== IMDb → vodId =====
   if (parsed.source === 'imdb') {
     if (CONFIG.ENABLE_IMDB === false) {
-      return jsonResponse({ streams: [] });
+      return jsonResponse({ streams: [debugStream(parsed, routeType, 'IMDb 解析已禁用')] });
     }
+
     const resolved = await resolveImdbToVod(parsed.imdbId, routeType, parsed.season);
     if (!resolved) {
       log.warn(`IMDb 解析失败: ${parsed.imdbId}`);
-      return jsonResponse({ streams: [] });
+      return jsonResponse({ streams: [debugStream(parsed, routeType, 'IMDb 无法映射到站内 ID')] });
     }
+
     parsed.vodId = resolved.vodId;
     // 关键：IMDb 已解析出 vodId，source 改成 dpd 以通过后续流程
     parsed.source = 'dpd';
@@ -336,14 +347,14 @@ async function handleStream(routeType, rawEncodedId) {
 
   if (parsed.source !== 'dpd') {
     log.warn(`stream source=${parsed.source} not implemented yet`);
-    return jsonResponse({ streams: [] });
+    return jsonResponse({ streams: [debugStream(parsed, routeType, `未知 source: ${parsed.source}`)] });
   }
 
   // ===== 1. 拿选集列表 =====
   const episodes = await fetchEpisodes(parsed.vodId);
   if (episodes.length === 0) {
     log.warn(`stream no episodes for vodId=${parsed.vodId}`);
-    return jsonResponse({ streams: [] });
+    return jsonResponse({ streams: [debugStream(parsed, routeType, 'episodes 为空', { vodId: parsed.vodId })] });
   }
 
   // ===== 2. 定位目标集 =====
@@ -360,14 +371,14 @@ async function handleStream(routeType, rawEncodedId) {
 
   if (!targetEp || !targetEp.token) {
     log.warn('no valid token');
-    return jsonResponse({ streams: [] });
+    return jsonResponse({ streams: [debugStream(parsed, routeType, '无有效 token', { epCount: episodes.length })] });
   }
 
   // ===== 3. 解析线路 =====
   const lines = await resolveStream(targetEp.token);
   if (lines.length === 0) {
     log.warn('no playable lines (all resolve_required)');
-    return jsonResponse({ streams: [] });
+    return jsonResponse({ streams: [debugStream(parsed, routeType, '无可用线路', { hasCookie: !!CONFIG.SESSION_COOKIE })] });
   }
 
   // ===== 4. 影片名（用于 stream.name）=====
@@ -424,6 +435,7 @@ function parseId(rawEncodedId) {
     const parts = rawId.split(':');
     return {
       source: 'imdb',
+      originalSource: 'imdb',
       imdbId: parts[0],
       season: parts[1] !== undefined ? (parseInt(parts[1], 10) || 1) : 1,
       episode: parts[2] !== undefined ? (parseInt(parts[2], 10) || 1) : 1,
@@ -438,6 +450,7 @@ function parseId(rawEncodedId) {
     const parts = rest.split(':');
     return {
       source: 'dpd',
+      originalSource: 'dpd',
       vodId: parts[0],
       season: parts[1] !== undefined ? (parseInt(parts[1], 10) || 1) : 1,
       episode: parts[2] !== undefined ? (parseInt(parts[2], 10) || 1) : 1,
