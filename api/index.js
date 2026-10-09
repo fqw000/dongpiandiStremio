@@ -1,17 +1,7 @@
-if (!globalThis.__logPatched) {
-  globalThis.__logPatched = true;
-  const _log = console.log.bind(console);
-  const _warn = console.warn.bind(console);
-  const _error = console.error.bind(console);
-  const ts = () => {
-    const d = new Date();
-    return `[${d.toTimeString().slice(0, 8)}.${String(d.getMilliseconds()).padStart(3, '0')}]`;
-  };
-  console.log = (...a) => _log(ts(), ...a);
-  console.warn = (...a) => _warn(ts(), ...a);
-  console.error = (...a) => _error(ts(), ...a);
-}
-
+/**
+ * Vercel Edge Function 入口
+ * 日志时间戳由 src/logger.js 统一处理，此处不做 console patch
+ */
 export const config = { runtime: 'edge' };
 
 import handler from '../src/handler.js';

@@ -22,6 +22,8 @@ import { generateManifest } from './manifest.js';
 import { fetchCatalog, fetchDetail, fetchEpisodes, resolveStream, searchVideos, CATALOG_MAP } from './adapter.js';
 import { getCacheStats } from './cache.js';
 import { decodeBase64Url } from './helper.js';
+import { resolveImdbToVod } from './imdb-resolver.js';
+
 
 const log = createLogger('Handler');
 
@@ -55,9 +57,9 @@ export async function handleRequest(request, env, ctx) {
     if (streamMatch) return await handleStream(streamMatch[1], streamMatch[2]);
 
     // ===== Debug =====
-    if (pathname === '/debug/cache')    return jsonResponse(getCacheStats());
-    if (pathname === '/debug/version')  return jsonResponse({ version: '1.0.0', logLevel: getLogLevel() });
-    if (pathname === '/debug/config')   return jsonResponse(redactConfig(getConfig()));
+    if (pathname === '/debug/cache') return jsonResponse(getCacheStats());
+    if (pathname === '/debug/version') return jsonResponse({ version: '1.0.0', logLevel: getLogLevel() });
+    if (pathname === '/debug/config') return jsonResponse(redactConfig(getConfig()));
 
     log.warn(`404 ${pathname}`);
     return new Response('Not Found', { status: 404 });
@@ -127,7 +129,8 @@ async function handleCatalog(routeType, catalogId, extraPath, url) {
   const isMovieCatalog = meta?.stremioType === 'movie';
 
   const metas = items.map(item => {
-    const isSeries = !isMovieCatalog || (item.totalEpisodeCount || 0) > 0;
+    // catalog 已声明类型，不需要再靠 totalEpisodeCount 猜
+    const isSeries = !isMovieCatalog;
     const id = isSeries ? `dpd_${item.vodId}:1:1` : `dpd_${item.vodId}`;
     return {
       id,
@@ -144,25 +147,69 @@ async function handleCatalog(routeType, catalogId, extraPath, url) {
   return jsonResponse({ metas }, 300);
 }
 
-async function handleCatalogSearch(routeType, catalogId, query) {
-  const results = await searchVideos(query, 24);
-  const metas = results
-    .map(item => {
-      const isSeries = (item.totalEpisodeCount || 0) > 0;
-      return {
-        id: isSeries ? `dpd_${item.vodId}:1:1` : `dpd_${item.vodId}`,
-        type: isSeries ? 'series' : 'movie',
-        name: item.vodName,
-        poster: item.vodPic || '',
-        releaseInfo: item.vodYear || '',
-        description: item.vodRemarks || '',
-      };
-    })
-    .filter(m => m.type === routeType);
+// /**
+//  * 处理 catalog 内的搜索请求
+//  *
+//  * 搜索结果按 kind 判定类型，与请求的 routeType 匹配后返回。
+//  * 不用 totalEpisodeCount 判断（电影也返回 1，不可靠）。
+//  *
+//  * @param {string} routeType - 'movie' | 'series'（来自 URL）
+//  * @param {string} catalogId - catalog id（如 dpd-movie）
+//  * @param {string} query - 搜索关键词
+//  */
+// async function handleCatalogSearch(routeType, catalogId, query) {
+//   const results = await searchVideos(query, 24);
 
-  log.info(`search ok: "${query}" → ${metas.length} metas (routeType=${routeType})`);
+//   // ===== 过滤：电影只保留 kind='movie'，剧集保留其他 =====
+//   const filtered = results.filter(item => {
+//     return routeType === 'movie' ? item.isMovie === true : item.isMovie === false;
+//   });
+
+//   const metas = filtered.map(item => ({
+//     // 电影用影片级 id，剧集用集级 id
+//     id: item.isMovie ? `dpd_${item.vodId}` : `dpd_${item.vodId}:1:1`,
+//     type: item.isMovie ? 'movie' : 'series',
+//     name: item.vodName,
+//     poster: item.vodPic || '',
+//     releaseInfo: item.vodYear || '',
+//     description: item.vodRemarks || '',
+//   }));
+
+//   log.info(`search ok: "${query}" → ${metas.length} metas (routeType=${routeType}, raw=${results.length})`);
+//   return jsonResponse({ metas }, 300);
+// }
+
+/**
+ * 处理 catalog 内的搜索请求
+ *
+ * 直接调懂片帝的 query_mode=fast_v3 一步搜索，按 catalogId 推导 kind 过滤。
+ * 服务端已按 kind 过滤，返回的 cards 类型精确，无需再在本地过滤。
+ *
+ * @param {string} routeType - 'movie' | 'series'（来自 URL，仅用于日志）
+ * @param {string} catalogId - catalog id（如 dpd-movie）
+ * @param {string} query - 搜索关键词
+ */
+async function handleCatalogSearch(routeType, catalogId, query) {
+  const catMeta = CATALOG_MAP[catalogId];
+  const kind = catMeta?.kind || '';
+
+  const results = await searchVideos(query, kind, 1);
+
+  const metas = results.map(item => ({
+    // 电影用影片级 id，其他类型用集级 id（Stremio series 规范）
+    id: item.isMovie ? `dpd_${item.vodId}` : `dpd_${item.vodId}:1:1`,
+    type: item.isMovie ? 'movie' : 'series',
+    name: item.vodName,
+    poster: item.vodPic || '',
+    releaseInfo: item.vodYear || '',
+    description: item.vodRemarks || '',
+  }));
+
+  log.info(`search ok: "${query}" kind=${kind || 'all'} → ${metas.length} metas`);
   return jsonResponse({ metas }, 300);
 }
+
+
 
 // ==========================================
 // Meta
@@ -172,20 +219,35 @@ async function handleMeta(routeType, rawEncodedId) {
   const parsed = parseId(rawEncodedId);
   log.info(`meta source=${parsed.source} vodId=${parsed.vodId || parsed.imdbId}`);
 
-  if (parsed.source !== 'dpd') {
-    // IMDb 在下一轮 imdb-resolver 中实现
-    log.warn(`meta source=${parsed.source} not implemented yet`);
-    return jsonResponse({ meta: null });
+
+  // ===== IMDb → vodId =====
+  let resolvedMeta = null;
+  if (parsed.source === 'imdb') {
+    if (CONFIG.ENABLE_IMDB === false) {
+      log.info('IMDb 解析已禁用');
+      return jsonResponse({ meta: null });
+    }
+    resolvedMeta = await resolveImdbToVod(parsed.imdbId, routeType, parsed.season);
+    if (!resolvedMeta) {
+      log.warn(`IMDb 解析失败: ${parsed.imdbId}`);
+      return jsonResponse({ meta: null });
+    }
+    parsed.vodId = resolvedMeta.vodId;
+    log.info(`IMDb → vodId: ${parsed.imdbId} → ${parsed.vodId}`);
   }
 
+  // ===== 拉详情 =====
   const detail = await fetchDetail(parsed.vodId);
   if (!detail) {
-    log.warn(`meta detail not found: ${parsed.vodId}`);
+    log.warn(`详情为空: ${parsed.vodId}`);
     return jsonResponse({ meta: null });
   }
 
-  const isSeries = routeType === 'series' || (detail.totalEpisodeCount || 0) > 0;
-  const metaId = `dpd_${parsed.vodId}`;
+
+  // 懂片帝对电影也返回 total_episode_count=1，无法用此区分
+  // Stremio 路由类型（movie/series）是更可靠的判断依据
+  const isSeries = routeType === 'series';
+  const metaId = parsed.source === 'imdb' ? parsed.imdbId : `dpd_${parsed.vodId}`;
 
   const meta = {
     id: metaId,
@@ -216,9 +278,19 @@ async function handleMeta(routeType, rawEncodedId) {
   const episodes = await fetchEpisodes(parsed.vodId);
   if (episodes.length > 0) {
     const fallbackThumb = detail.vodPic || '';
+
+    // video id 前缀必须与 meta.id 同源，否则 Stremio 客户端
+    // 从 meta 页面点第 N 集时，会拿 dpd_ 前缀去请求 stream 接口，
+    // 与 IMDb 缓存、跨 Addon 协作都脱节。
+    const isImdb = parsed.source === 'imdb';
+    const videoIdPrefix = isImdb
+      ? `${parsed.imdbId}:${parsed.season || 1}`
+      : `dpd_${parsed.vodId}:1`;
+    const videoSeason = isImdb ? (parsed.season || 1) : 1;
+
     meta.videos = episodes.map((ep, idx) => ({
-      id: `dpd_${parsed.vodId}:1:${idx + 1}`,
-      season: 1,
+      id: `${videoIdPrefix}:${idx + 1}`,
+      season: videoSeason,
       episode: idx + 1,
       title: ep.title || `第${idx + 1}集`,
       thumbnail: fallbackThumb,
@@ -245,7 +317,22 @@ async function handleStream(routeType, rawEncodedId) {
   }
 
   const parsed = parseId(rawEncodedId);
-  log.info(`stream source=${parsed.source} vodId=${parsed.vodId} ep=${parsed.episode}`);
+  log.info(`stream source=${parsed.source} id=${parsed.vodId || parsed.imdbId} ep=${parsed.episode}`);
+
+  // ===== IMDb → vodId =====
+  if (parsed.source === 'imdb') {
+    if (CONFIG.ENABLE_IMDB === false) {
+      return jsonResponse({ streams: [] });
+    }
+    const resolved = await resolveImdbToVod(parsed.imdbId, routeType, parsed.season);
+    if (!resolved) {
+      log.warn(`IMDb 解析失败: ${parsed.imdbId}`);
+      return jsonResponse({ streams: [] });
+    }
+    parsed.vodId = resolved.vodId;
+    // 关键：IMDb 已解析出 vodId，source 改成 dpd 以通过后续流程
+    parsed.source = 'dpd';
+  }
 
   if (parsed.source !== 'dpd') {
     log.warn(`stream source=${parsed.source} not implemented yet`);
@@ -288,7 +375,16 @@ async function handleStream(routeType, rawEncodedId) {
   const movieName = detail?.vodName || '懂片帝';
 
   // ===== 5. 组装 Stremio streams =====
-  const streams = lines.map(line => {
+  // 保险过滤：只让 http(s) 开头的 url 通过，避免脏数据传给播放器
+  const validLines = lines.filter(line => {
+    if (!line.url || !/^https?:\/\//.test(line.url)) {
+      log.warn(`剔除非法 url: ${String(line.url).slice(0, 60)}`);
+      return false;
+    }
+    return true;
+  });
+
+  const streams = validLines.map(line => {
     const isHls = line.url.includes('.m3u8');
     return {
       name: movieName,
@@ -302,7 +398,17 @@ async function handleStream(routeType, rawEncodedId) {
     };
   });
 
-  log.info(`stream ok: ${streams.length} lines`);
+  // 根据 URL 域名判断实际模式
+  let mode = CONFIG.SESSION_COOKIE ? 'Cookie' : '匿名';
+  if (streams.length > 0) {
+    const u = streams[0].url;
+    if (/byteimg|toutiaovod|heycan/.test(u)) mode += '·官方';
+    else if (/\.m3u8/.test(u)) mode += '·m3u8回退';
+  } else {
+    mode += '·无结果';
+  }
+  log.info(`stream ok: ${streams.length} 条线路返回（${mode}）`);
+
   return jsonResponse({ streams }, 60);
 }
 
@@ -392,5 +498,10 @@ function redactConfig(cfg) {
   const out = { ...cfg };
   if (out.API_KEY) out.API_KEY = out.API_KEY.slice(0, 8) + '***';
   if (out.TMDB_API_KEY) out.TMDB_API_KEY = out.TMDB_API_KEY.slice(0, 8) + '***';
+  if (out.SESSION_COOKIE) {
+    out.SESSION_COOKIE = out.SESSION_COOKIE.slice(0, 8) + '***(len=' + out.SESSION_COOKIE.length + ')';
+  } else {
+    out.SESSION_COOKIE = '(empty)';
+  }
   return out;
 }

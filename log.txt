@@ -1,0 +1,1735 @@
+═══════════════════════════════════════════════════
+  懂片帝接口探针
+═══════════════════════════════════════════════════
+
+【1】Catalog 基础（6 个 kind）
+
+▶ catalog-movie
+  /v1/browse/catalog?kind=movie&page=1&limit=20
+  ✅ 20 条，首条：胡加尔的一天 (666ms)
+  结构 (69 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(2)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].backdrop_url : string
+    cards[].carousel_url : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(1)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(6)
+    cards[].genres[] : array(4)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].language : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-movie.json
+  📊 pagination: {"page":1,"limit":20,"offset":0,"total":1000,"returned_count":20,"has_more":true,"next_page":2,"next_offset":20}
+
+▶ catalog-series
+  /v1/browse/catalog?kind=series&page=1&limit=20
+  ✅ 20 条，首条：凤池生春 (183ms)
+  结构 (69 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(5)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].backdrop_url : string
+    cards[].carousel_url : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(1)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(4)
+    cards[].genres[] : array(9)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].language : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-series.json
+  📊 pagination: {"page":1,"limit":20,"offset":0,"total":1000,"returned_count":20,"has_more":true,"next_page":2,"next_offset":20}
+
+▶ catalog-short_drama
+  /v1/browse/catalog?kind=short_drama&page=1&limit=20
+  ✅ 20 条，首条：错位重逢 (213ms)
+  结构 (63 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(0)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(0)
+    cards[].export_id : number
+    cards[].genres[] : array(2)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].language : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-short_drama.json
+  📊 pagination: {"page":1,"limit":20,"offset":0,"total":1000,"returned_count":20,"has_more":true,"next_page":2,"next_offset":20}
+
+▶ catalog-anime
+  /v1/browse/catalog?kind=anime&page=1&limit=20
+  ✅ 20 条，首条：万人之上 (202ms)
+  结构 (67 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(12)
+    cards[].aliases[] : array(0)
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].backdrop_url : string
+    cards[].carousel_url : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(3)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(6)
+    cards[].genres[] : array(2)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].language : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-anime.json
+  📊 pagination: {"page":1,"limit":20,"offset":0,"total":1000,"returned_count":20,"has_more":true,"next_page":2,"next_offset":20}
+
+▶ catalog-variety
+  /v1/browse/catalog?kind=variety&page=1&limit=20
+  ✅ 20 条，首条：2023SBS歌谣大战 (220ms)
+  结构 (67 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(3)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(5)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(6)
+    cards[].genres[] : array(4)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].language : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-variety.json
+  📊 pagination: {"page":1,"limit":20,"offset":0,"total":1000,"returned_count":20,"has_more":true,"next_page":2,"next_offset":20}
+
+▶ catalog-documentary
+  /v1/browse/catalog?kind=documentary&page=1&limit=20
+  ✅ 20 条，首条：玛克辛的宝贝:泰勒·派瑞的故事 (195ms)
+  结构 (66 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(12)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(6)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(6)
+    cards[].genres[] : array(1)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-documentary.json
+  📊 pagination: {"page":1,"limit":20,"offset":0,"total":1000,"returned_count":20,"has_more":true,"next_page":2,"next_offset":20}
+
+【2】Catalog 筛选参数
+
+▶ catalog-movie-genre
+  /v1/browse/catalog?kind=movie&page=1&limit=20&genre=%E5%8A%A8%E4%BD%9C
+  ✅ 20 条（动作） (204ms)
+  结构 (69 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(12)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].backdrop_url : string
+    cards[].carousel_url : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(1)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(5)
+    cards[].genres[] : array(8)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.genre : string
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-movie-genre.json
+
+▶ catalog-movie-year
+  /v1/browse/catalog?kind=movie&page=1&limit=20&year=2024
+  ✅ 20 条（2024） (613ms)
+  结构 (68 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(10)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(1)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(6)
+    cards[].genres[] : array(1)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].language : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.params.year : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-movie-year.json
+
+▶ catalog-movie-trending
+  /v1/browse/catalog?kind=movie&page=1&limit=20&sort=trending
+  ✅ 20 条（trending） (309ms)
+  结构 (69 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(7)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].backdrop_url : string
+    cards[].carousel_url : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(1)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(6)
+    cards[].genres[] : array(4)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.params.sort : string
+    request.params.window : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-movie-trending.json
+
+▶ catalog-movie-page2
+  /v1/browse/catalog?kind=movie&page=2&limit=20
+  ✅ 20 条（page 2） (352ms)
+  结构 (67 个字段):
+    cards[] : array(20)
+    cards[].actors[] : array(7)
+    cards[].aliases[] : array(0)
+    cards[].area : string
+    cards[].availability : object
+    cards[].availability.disabled : boolean
+    cards[].availability.label : string
+    cards[].availability.playable : boolean
+    cards[].availability.source : string
+    cards[].availability.state : string
+    cards[].content_kind : string
+    cards[].detail_url : string
+    cards[].directors[] : array(1)
+    cards[].export_id : number
+    cards[].facts : object
+    cards[].facts.embedding_terms[] : array(0)
+    cards[].facts.intent_phrases[] : array(3)
+    cards[].facts.theme_terms[] : array(6)
+    cards[].genres[] : array(1)
+    cards[].heat_value : number
+    cards[].id : string
+    cards[].language : string
+    cards[].normalized_title : string
+    cards[].playback_count : number
+    cards[].playback_groups[] : array(3)
+    cards[].playback_groups[].episode_count : number
+    cards[].playback_groups[].episodes[] : array(0)
+    cards[].playback_groups[].id : string
+    cards[].playback_groups[].label : string
+    cards[].playback_groups[].type : string
+    cards[].poster_url : string
+    cards[].rank_position : number
+    cards[].rank_reason[] : array(0)
+    cards[].reasons[] : array(0)
+    cards[].remarks : string
+    cards[].seasons[] : array(0)
+    cards[].title : string
+    cards[].updated_at : string
+    cards[].work_id : string
+    cards[].year : number
+    generated_at : string
+    object : string
+    pagination : object
+    pagination.has_more : boolean
+    pagination.limit : number
+    pagination.next_offset : number
+    pagination.next_page : number
+    pagination.offset : number
+    pagination.page : number
+    pagination.returned_count : number
+    pagination.total : number
+    request : object
+    request.label : string
+    request.limit : number
+    request.method : string
+    request.page : number
+    request.params : object
+    request.params.intent : string
+    request.params.kind : string
+    request.params.limit : string
+    request.params.page : string
+    request.path : string
+    request.type : string
+    source_statuses[] : array(1)
+    source_statuses[].sourceId : string
+    source_statuses[].sourceType : string
+    source_statuses[].status : string
+  💾 samples/catalog-movie-page2.json
+
+【3】Detail（6 个 kind）
+
+▶ detail-movie
+  /v1/catalog/av_axc66mQqSOKptiQOEj9mNLq8IVMhnVImTSP_6n-JnSo0rZCS7hCXcT0s-0HdYUKHMYlvGZvjwtdHxdE
+  ✅ "胡加尔的一天" (2025) total_ep=1 (568ms)
+  结构 (93 个字段):
+    actors[] : array(2)
+    ai_entry_actions[] : array(6)
+    ai_entry_actions[].icon : string
+    ai_entry_actions[].key : string
+    ai_entry_actions[].label : string
+    ai_entry_actions[].metadata : object
+    ai_entry_actions[].metadata.agent_runtime : string
+    ai_entry_actions[].metadata.ai_entry_key : string
+    ai_entry_actions[].metadata.ai_entry_surface : string
+    ai_entry_actions[].metadata.intent_key : string
+    ai_entry_actions[].metadata.kind : string
+    ai_entry_actions[].metadata.relation_type : string
+    ai_entry_actions[].metadata.same_kind : string
+    ai_entry_actions[].metadata.seed_query : string
+    ai_entry_actions[].metadata.seed_variant_id : string
+    ai_entry_actions[].metadata.source_title : string
+    ai_entry_actions[].metadata.source_variant_id : string
+    ai_entry_actions[].prompt : string
+    area : string
+    available_episode_count : number
+    backdrop_url : string
+    carousel_url : string
+    content_kind : string
+    current_episode_count : number
+    default_variant_id : string
+    description : string
+    directors[] : array(1)
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episode_progress_text : string
+    episodes[] : array(1)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    genres[] : array(4)
+    heat_value : number
+    id : string
+    is_completed : boolean
+    language : string
+    normalized_title : string
+    object : string
+    playback_count : number
+    playback_groups[] : array(0)
+    poster_url : string
+    recent_update : object
+    recent_update.display_text : string
+    recent_update.last_updated_at : string
+    recent_update.latest_episode_token : string
+    remarks : string
+    season_count : number
+    seasons[] : array(1)
+    seasons[].available_episode_count : number
+    seasons[].default : boolean
+    seasons[].has_playback : boolean
+    seasons[].heat_value : number
+    seasons[].id : string
+    seasons[].playback_count : number
+    seasons[].season_label : string
+    seasons[].selected : boolean
+    seasons[].title : string
+    seasons[].updated_at : string
+    seasons[].variant_id : string
+    seasons[].work_id : string
+    seasons[].year : number
+    selected_variant_id : string
+    title : string
+    total_episode_count : number
+    update_status : string
+    variant_id : string
+    variants[] : array(1)
+    variants[].available_episode_count : number
+    variants[].default : boolean
+    variants[].has_playback : boolean
+    variants[].heat_value : number
+    variants[].id : string
+    variants[].playback_count : number
+    variants[].season_label : string
+    variants[].selected : boolean
+    variants[].title : string
+    variants[].updated_at : string
+    variants[].variant_id : string
+    variants[].work_id : string
+    variants[].year : number
+    year : number
+  💾 samples/detail-movie.json
+
+▶ detail-series
+  /v1/catalog/av_-RDuDfqzXWjX_skN29kmd9_N-fTpoyg2wt97omEVJkwklzo__hajvIzc7YekE-_wV3sjpwcFfeZwHf0
+  ✅ "凤池生春" (2026) total_ep=21 (616ms)
+  结构 (100 个字段):
+    actors[] : array(5)
+    ai_entry_actions[] : array(7)
+    ai_entry_actions[].icon : string
+    ai_entry_actions[].key : string
+    ai_entry_actions[].label : string
+    ai_entry_actions[].metadata : object
+    ai_entry_actions[].metadata.agent_runtime : string
+    ai_entry_actions[].metadata.ai_entry_key : string
+    ai_entry_actions[].metadata.ai_entry_surface : string
+    ai_entry_actions[].metadata.intent_key : string
+    ai_entry_actions[].metadata.kind : string
+    ai_entry_actions[].metadata.relation_type : string
+    ai_entry_actions[].metadata.same_kind : string
+    ai_entry_actions[].metadata.seed_query : string
+    ai_entry_actions[].metadata.seed_variant_id : string
+    ai_entry_actions[].metadata.source_title : string
+    ai_entry_actions[].metadata.source_variant_id : string
+    ai_entry_actions[].prompt : string
+    area : string
+    available_episode_count : number
+    backdrop_url : string
+    carousel_url : string
+    content_kind : string
+    current_episode_count : number
+    default_variant_id : string
+    description : string
+    directors[] : array(1)
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episode_progress_text : string
+    episodes[] : array(21)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].number : number
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    genres[] : array(9)
+    heat_value : number
+    id : string
+    is_completed : boolean
+    language : string
+    normalized_title : string
+    object : string
+    playback_count : number
+    playback_groups[] : array(0)
+    poster_url : string
+    remarks : string
+    season_count : number
+    seasons[] : array(1)
+    seasons[].available_episode_count : number
+    seasons[].default : boolean
+    seasons[].episode_count : number
+    seasons[].has_playback : boolean
+    seasons[].heat_value : number
+    seasons[].id : string
+    seasons[].playback_count : number
+    seasons[].season_label : string
+    seasons[].selected : boolean
+    seasons[].title : string
+    seasons[].updated_at : string
+    seasons[].variant_id : string
+    seasons[].work_id : string
+    seasons[].year : number
+    selected_variant_id : string
+    title : string
+    total_episode_count : number
+    update_status : string
+    variant_id : string
+    variants[] : array(1)
+    variants[].available_episode_count : number
+    variants[].default : boolean
+    variants[].episode_count : number
+    variants[].has_playback : boolean
+    variants[].heat_value : number
+    variants[].id : string
+    variants[].playback_count : number
+    variants[].season_label : string
+    variants[].selected : boolean
+    variants[].title : string
+    variants[].updated_at : string
+    variants[].variant_id : string
+    variants[].work_id : string
+    variants[].year : number
+    watch_calendar_forecast : object
+    watch_calendar_forecast.forecasts[] : array(2)
+    watch_calendar_forecast.forecasts[].items[] : array(0)
+    watch_calendar_forecast.forecasts[].snapshot_id : string
+    watch_calendar_forecast.forecasts[].week : string
+    watch_calendar_forecast.prediction_only : boolean
+    watch_calendar_forecast.profile : string
+    watch_calendar_forecast.source : string
+    year : number
+  💾 samples/detail-series.json
+
+▶ detail-short_drama
+  /v1/catalog/av_ZEtznDSf2kVNym0Earl9YhQuHjxNS8ek7NKCjsDsJZHDLeu1lGPqeQYGYhkeJL7T0l-3eeQeEclXxfs
+  ✅ "错位重逢" (2026) total_ep=95 (78ms)
+  结构 (90 个字段):
+    actors[] : array(0)
+    ai_entry_actions[] : array(3)
+    ai_entry_actions[].icon : string
+    ai_entry_actions[].key : string
+    ai_entry_actions[].label : string
+    ai_entry_actions[].metadata : object
+    ai_entry_actions[].metadata.agent_runtime : string
+    ai_entry_actions[].metadata.ai_entry_key : string
+    ai_entry_actions[].metadata.ai_entry_surface : string
+    ai_entry_actions[].metadata.intent_key : string
+    ai_entry_actions[].metadata.kind : string
+    ai_entry_actions[].metadata.relation_type : string
+    ai_entry_actions[].metadata.same_kind : string
+    ai_entry_actions[].metadata.seed_query : string
+    ai_entry_actions[].metadata.seed_variant_id : string
+    ai_entry_actions[].metadata.source_title : string
+    ai_entry_actions[].metadata.source_variant_id : string
+    ai_entry_actions[].prompt : string
+    area : string
+    available_episode_count : number
+    content_kind : string
+    current_episode_count : number
+    default_variant_id : string
+    description : string
+    directors[] : array(0)
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episode_progress_text : string
+    episodes[] : array(95)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].number : number
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    genres[] : array(2)
+    heat_value : number
+    id : string
+    is_completed : boolean
+    language : string
+    normalized_title : string
+    object : string
+    playback_count : number
+    playback_groups[] : array(0)
+    poster_url : string
+    remarks : string
+    season_count : number
+    seasons[] : array(1)
+    seasons[].available_episode_count : number
+    seasons[].default : boolean
+    seasons[].episode_count : number
+    seasons[].has_playback : boolean
+    seasons[].heat_value : number
+    seasons[].id : string
+    seasons[].playback_count : number
+    seasons[].season_label : string
+    seasons[].selected : boolean
+    seasons[].title : string
+    seasons[].updated_at : string
+    seasons[].variant_id : string
+    seasons[].work_id : string
+    seasons[].year : number
+    selected_variant_id : string
+    title : string
+    total_episode_count : number
+    update_status : string
+    variant_id : string
+    variants[] : array(1)
+    variants[].available_episode_count : number
+    variants[].default : boolean
+    variants[].episode_count : number
+    variants[].has_playback : boolean
+    variants[].heat_value : number
+    variants[].id : string
+    variants[].playback_count : number
+    variants[].season_label : string
+    variants[].selected : boolean
+    variants[].title : string
+    variants[].updated_at : string
+    variants[].variant_id : string
+    variants[].work_id : string
+    variants[].year : number
+    year : number
+  💾 samples/detail-short_drama.json
+
+▶ detail-anime
+  /v1/catalog/av_IsoXJhDt2hJRvj_kiCJA5Y2wzInBhnADusB8xr95D_MpnaR3OQUqfRcEK82G2Envkk47UiSQ78suCko
+  ✅ "万人之上" (?) total_ep=66 (256ms)
+  结构 (105 个字段):
+    actors[] : array(12)
+    ai_entry_actions[] : array(8)
+    ai_entry_actions[].icon : string
+    ai_entry_actions[].key : string
+    ai_entry_actions[].label : string
+    ai_entry_actions[].metadata : object
+    ai_entry_actions[].metadata.agent_runtime : string
+    ai_entry_actions[].metadata.ai_entry_key : string
+    ai_entry_actions[].metadata.ai_entry_surface : string
+    ai_entry_actions[].metadata.intent_key : string
+    ai_entry_actions[].metadata.kind : string
+    ai_entry_actions[].metadata.relation_type : string
+    ai_entry_actions[].metadata.same_kind : string
+    ai_entry_actions[].metadata.seed_query : string
+    ai_entry_actions[].metadata.seed_variant_id : string
+    ai_entry_actions[].metadata.source_title : string
+    ai_entry_actions[].metadata.source_variant_id : string
+    ai_entry_actions[].prompt : string
+    available_episode_count : number
+    backdrop_url : string
+    carousel_url : string
+    content_kind : string
+    current_episode_count : number
+    default_variant_id : string
+    description : string
+    directors[] : array(3)
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episode_progress_text : string
+    episodes[] : array(14)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].number : number
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    genres[] : array(2)
+    heat_value : number
+    id : string
+    is_completed : boolean
+    language : string
+    normalized_title : string
+    object : string
+    playback_count : number
+    playback_groups[] : array(0)
+    poster_url : string
+    recent_update : object
+    recent_update.display_text : string
+    recent_update.last_updated_at : string
+    recent_update.latest_episode_number : number
+    recent_update.latest_episode_token : string
+    remarks : string
+    season_count : number
+    seasons[] : array(4)
+    seasons[].available_episode_count : number
+    seasons[].default : boolean
+    seasons[].episode_count : number
+    seasons[].has_playback : boolean
+    seasons[].heat_value : number
+    seasons[].id : string
+    seasons[].playback_count : number
+    seasons[].season_label : string
+    seasons[].season_number : number
+    seasons[].selected : boolean
+    seasons[].title : string
+    seasons[].updated_at : string
+    seasons[].variant_id : string
+    seasons[].work_id : string
+    seasons[].year : number
+    selected_variant_id : string
+    title : string
+    total_episode_count : number
+    update_status : string
+    variant_id : string
+    variants[] : array(4)
+    variants[].available_episode_count : number
+    variants[].default : boolean
+    variants[].episode_count : number
+    variants[].has_playback : boolean
+    variants[].heat_value : number
+    variants[].id : string
+    variants[].playback_count : number
+    variants[].season_label : string
+    variants[].season_number : number
+    variants[].selected : boolean
+    variants[].title : string
+    variants[].updated_at : string
+    variants[].variant_id : string
+    variants[].work_id : string
+    variants[].year : number
+    watch_calendar_forecast : object
+    watch_calendar_forecast.forecasts[] : array(2)
+    watch_calendar_forecast.forecasts[].items[] : array(0)
+    watch_calendar_forecast.forecasts[].snapshot_id : string
+    watch_calendar_forecast.forecasts[].week : string
+    watch_calendar_forecast.prediction_only : boolean
+    watch_calendar_forecast.profile : string
+    watch_calendar_forecast.source : string
+  💾 samples/detail-anime.json
+
+▶ detail-variety
+  /v1/catalog/av_zhTPGRIiAKrnKnSCRIPbzPuSkree7CS5R2C2aEoxrdgRDNgjOwKaPVAuuv0Ug7qpJWvWO1qcFlxCRyE
+  ✅ "2023SBS歌谣大战" (2023) total_ep=0 (224ms)
+  结构 (95 个字段):
+    actors[] : array(3)
+    ai_entry_actions[] : array(8)
+    ai_entry_actions[].icon : string
+    ai_entry_actions[].key : string
+    ai_entry_actions[].label : string
+    ai_entry_actions[].metadata : object
+    ai_entry_actions[].metadata.agent_runtime : string
+    ai_entry_actions[].metadata.ai_entry_key : string
+    ai_entry_actions[].metadata.ai_entry_surface : string
+    ai_entry_actions[].metadata.intent_key : string
+    ai_entry_actions[].metadata.kind : string
+    ai_entry_actions[].metadata.relation_type : string
+    ai_entry_actions[].metadata.same_kind : string
+    ai_entry_actions[].metadata.seed_query : string
+    ai_entry_actions[].metadata.seed_variant_id : string
+    ai_entry_actions[].metadata.source_title : string
+    ai_entry_actions[].metadata.source_variant_id : string
+    ai_entry_actions[].prompt : string
+    area : string
+    available_episode_count : number
+    content_kind : string
+    current_episode_count : number
+    default_variant_id : string
+    description : string
+    directors[] : array(5)
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episode_progress_text : string
+    episodes[] : array(1)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    genres[] : array(4)
+    heat_value : number
+    id : string
+    is_completed : boolean
+    language : string
+    normalized_title : string
+    object : string
+    playback_count : number
+    playback_groups[] : array(0)
+    poster_url : string
+    remarks : string
+    season_count : number
+    seasons[] : array(1)
+    seasons[].available_episode_count : number
+    seasons[].default : boolean
+    seasons[].has_playback : boolean
+    seasons[].heat_value : number
+    seasons[].id : string
+    seasons[].playback_count : number
+    seasons[].season_label : string
+    seasons[].selected : boolean
+    seasons[].title : string
+    seasons[].updated_at : string
+    seasons[].variant_id : string
+    seasons[].work_id : string
+    seasons[].year : number
+    selected_variant_id : string
+    title : string
+    total_episode_count : number
+    update_status : string
+    variant_id : string
+    variants[] : array(1)
+    variants[].available_episode_count : number
+    variants[].default : boolean
+    variants[].has_playback : boolean
+    variants[].heat_value : number
+    variants[].id : string
+    variants[].playback_count : number
+    variants[].season_label : string
+    variants[].selected : boolean
+    variants[].title : string
+    variants[].updated_at : string
+    variants[].variant_id : string
+    variants[].work_id : string
+    variants[].year : number
+    watch_calendar_forecast : object
+    watch_calendar_forecast.forecasts[] : array(2)
+    watch_calendar_forecast.forecasts[].items[] : array(0)
+    watch_calendar_forecast.forecasts[].snapshot_id : string
+    watch_calendar_forecast.forecasts[].week : string
+    watch_calendar_forecast.prediction_only : boolean
+    watch_calendar_forecast.profile : string
+    watch_calendar_forecast.source : string
+    year : number
+  💾 samples/detail-variety.json
+
+▶ detail-documentary
+  /v1/catalog/av_MHUf3O4fpiSce64XRfA9z6rfxo1HCHSGluT3jsNtF-xcnOE6z1lNx7-kOBB4JcMK3WPa3UB1vAc2X_A
+  ✅ "玛克辛的宝贝:泰勒·派瑞的故事" (2023) total_ep=1 (247ms)
+  结构 (87 个字段):
+    actors[] : array(12)
+    ai_entry_actions[] : array(7)
+    ai_entry_actions[].icon : string
+    ai_entry_actions[].key : string
+    ai_entry_actions[].label : string
+    ai_entry_actions[].metadata : object
+    ai_entry_actions[].metadata.agent_runtime : string
+    ai_entry_actions[].metadata.ai_entry_key : string
+    ai_entry_actions[].metadata.ai_entry_surface : string
+    ai_entry_actions[].metadata.intent_key : string
+    ai_entry_actions[].metadata.kind : string
+    ai_entry_actions[].metadata.relation_type : string
+    ai_entry_actions[].metadata.same_kind : string
+    ai_entry_actions[].metadata.seed_query : string
+    ai_entry_actions[].metadata.seed_variant_id : string
+    ai_entry_actions[].metadata.source_title : string
+    ai_entry_actions[].metadata.source_variant_id : string
+    ai_entry_actions[].prompt : string
+    area : string
+    available_episode_count : number
+    content_kind : string
+    current_episode_count : number
+    default_variant_id : string
+    description : string
+    directors[] : array(6)
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episode_progress_text : string
+    episodes[] : array(2)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].number : number
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    genres[] : array(1)
+    heat_value : number
+    id : string
+    is_completed : boolean
+    normalized_title : string
+    object : string
+    playback_count : number
+    playback_groups[] : array(0)
+    poster_url : string
+    remarks : string
+    season_count : number
+    seasons[] : array(2)
+    seasons[].available_episode_count : number
+    seasons[].default : boolean
+    seasons[].episode_count : number
+    seasons[].has_playback : boolean
+    seasons[].heat_value : number
+    seasons[].id : string
+    seasons[].playback_count : number
+    seasons[].season_label : string
+    seasons[].selected : boolean
+    seasons[].title : string
+    seasons[].updated_at : string
+    seasons[].variant_id : string
+    seasons[].work_id : string
+    selected_variant_id : string
+    title : string
+    total_episode_count : number
+    update_status : string
+    variant_id : string
+    variants[] : array(2)
+    variants[].available_episode_count : number
+    variants[].default : boolean
+    variants[].episode_count : number
+    variants[].has_playback : boolean
+    variants[].heat_value : number
+    variants[].id : string
+    variants[].playback_count : number
+    variants[].season_label : string
+    variants[].selected : boolean
+    variants[].title : string
+    variants[].updated_at : string
+    variants[].variant_id : string
+    variants[].work_id : string
+    year : number
+  💾 samples/detail-documentary.json
+
+【4】Episodes
+
+▶ episodes-movie
+  /v1/catalog/av_axc66mQqSOKptiQOEj9mNLq8IVMhnVImTSP_6n-JnSo0rZCS7hCXcT0s-0HdYUKHMYlvGZvjwtdHxdE/episodes
+  ✅ 1 集 (233ms)
+  结构 (20 个字段):
+    available_episode_count : number
+    content_kind : string
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episodes[] : array(1)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    object : string
+    title : string
+    variant_id : string
+  💾 samples/episodes-movie.json
+  📊 episode_pagination: {"offset":0,"limit":48,"returned_count":1,"total_count":1,"has_more":false}
+
+▶ episodes-series
+  /v1/catalog/av_-RDuDfqzXWjX_skN29kmd9_N-fTpoyg2wt97omEVJkwklzo__hajvIzc7YekE-_wV3sjpwcFfeZwHf0/episodes
+  ✅ 21 集 (230ms)
+  结构 (21 个字段):
+    available_episode_count : number
+    content_kind : string
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episodes[] : array(21)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].number : number
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    object : string
+    title : string
+    variant_id : string
+  💾 samples/episodes-series.json
+  📊 episode_pagination: {"offset":0,"limit":48,"returned_count":21,"total_count":21,"has_more":false}
+
+▶ episodes-short_drama
+  /v1/catalog/av_ZEtznDSf2kVNym0Earl9YhQuHjxNS8ek7NKCjsDsJZHDLeu1lGPqeQYGYhkeJL7T0l-3eeQeEclXxfs/episodes
+  ✅ 48 集 (93ms)
+  结构 (21 个字段):
+    available_episode_count : number
+    content_kind : string
+    episode_count : number
+    episode_pagination : object
+    episode_pagination.has_more : boolean
+    episode_pagination.limit : number
+    episode_pagination.offset : number
+    episode_pagination.returned_count : number
+    episode_pagination.total_count : number
+    episodes[] : array(48)
+    episodes[].episode_track : string
+    episodes[].id : string
+    episodes[].key : string
+    episodes[].number : number
+    episodes[].playback_count : number
+    episodes[].title : string
+    episodes[].token : string
+    episodes[].urls : object
+    object : string
+    title : string
+    variant_id : string
+  💾 samples/episodes-short_drama.json
+  📊 episode_pagination: {"offset":0,"limit":48,"returned_count":48,"total_count":95,"has_more":true}
+
+【5】Resolve（播放线路）
+
+▶ resolve-movie
+  /v1/playback/resolve/av_LO6AszMjLL4QKkIJB_wfnVHNwcYVA9sKu96MIDqZlkFKdv5f9KUJ4rLapgAGDCWXYlDNOL4F-8yw6VfLs_P2LXA?view=compact
+  ✅ 20 条线路，其中 19 条可直连 (248ms)
+  结构 (31 个字段):
+    current_episode : object
+    current_episode.display_name : string
+    current_episode.episode_key : string
+    current_episode.episode_number : null
+    current_episode.id : string
+    current_episode.next_episode_token : null
+    current_episode.previous_episode_token : null
+    current_episode.sequence_index : number
+    current_episode.source_next_episode_token : null
+    current_episode.source_previous_episode_token : null
+    current_episode.token : string
+    current_episode.urls : object
+    line_options[] : array(20)
+    line_options[].default_priority : boolean
+    line_options[].id : string
+    line_options[].label : string
+    line_options[].minimum_user_level : number
+    line_options[].play_from : string
+    line_options[].preference_weight : number
+    line_options[].provider_id : string
+    line_options[].provider_name : string
+    line_options[].resolve_mode : string
+    line_options[].resolve_required : boolean
+    line_options[].resolved : boolean
+    line_options[].selected : boolean
+    line_options[].source_vod_id : string
+    line_options[].url : string
+    line_options[].url_kind : string
+    object : string
+    token : string
+    view : string
+  💾 samples/resolve-movie.json
+  线路明细:
+    - play_from=Dong label=1080P-官方D · 英语 url_kind=resolve_ticket resolved=false req=true
+    - play_from=hnm3u8 label=红牛资源 url_kind=m3u8 resolved=true req=false
+    - play_from=xlm3u8 label=新浪资源 · 英语 url_kind=m3u8 resolved=true req=false
+    - play_from=xiguam3u8 label=西瓜资源 url_kind=m3u8 resolved=true req=false
+    - play_from=wsym3u8 label=无水印资源 url_kind=m3u8 resolved=true req=false
+    - play_from=jsm3u8 label=极速资源 url_kind=m3u8 resolved=true req=false
+    - play_from=1080zyk label=1080zyk url_kind=m3u8 resolved=true req=false
+    - play_from=dbm3u8 label=豆瓣资源 · 英语 url_kind=m3u8 resolved=true req=false
+    - play_from=snm3u8 label=索尼资源 url_kind=m3u8 resolved=true req=false
+    - play_from=hhm3u8 label=豪华资源 url_kind=m3u8 resolved=true req=false
+    - play_from=ukm3u8 label=U酷资源 url_kind=m3u8 resolved=true req=false
+    - play_from=jinyingm3u8 label=金鹰资源 url_kind=m3u8 resolved=true req=false
+    - play_from=mtm3u8 label=茅台资源 · 英语 url_kind=m3u8 resolved=true req=false
+    - play_from=subm3u8 label=速播资源 url_kind=m3u8 resolved=true req=false
+    - play_from=dyttm3u8 label=电影天堂资源 url_kind=m3u8 resolved=true req=false
+    - play_from=wjm3u8 label=无尽资源 url_kind=m3u8 resolved=true req=false
+    - play_from=zuidam3u8 label=最大资源 url_kind=m3u8 resolved=true req=false
+    - play_from=lzm3u8 label=量子资源 · 英语 url_kind=m3u8 resolved=true req=false
+    - play_from=nnm3u8 label=牛牛资源 url_kind=m3u8 resolved=true req=false
+    - play_from=rym3u8 label=如意资源 url_kind=m3u8 resolved=true req=false
+
+▶ resolve-series
+  /v1/playback/resolve/av_R29wJqb4Pzivo1KckeHTeSi8p8GbYCZzKo6JtLkB2Nijn4-jrsocs5AgPE9IeoqCZUDUCI7Mlu05n2X5lHb37dU?view=compact
+  ✅ 32 条线路，其中 25 条可直连 (250ms)
+  结构 (30 个字段):
+    current_episode : object
+    current_episode.display_name : string
+    current_episode.episode_key : string
+    current_episode.episode_number : number
+    current_episode.id : string
+    current_episode.next_episode_token : string
+    current_episode.previous_episode_token : null
+    current_episode.sequence_index : number
+    current_episode.source_next_episode_token : string
+    current_episode.source_previous_episode_token : null
+    current_episode.token : string
+    current_episode.urls : object
+    line_options[] : array(32)
+    line_options[].default_priority : boolean
+    line_options[].id : string
+    line_options[].label : string
+    line_options[].minimum_user_level : number
+    line_options[].play_from : string
+    line_options[].preference_weight : number
+    line_options[].provider_id : string
+    line_options[].resolve_mode : string
+    line_options[].resolve_required : boolean
+    line_options[].resolved : boolean
+    line_options[].selected : boolean
+    line_options[].source_vod_id : string
+    line_options[].url : string
+    line_options[].url_kind : string
+    object : string
+    token : string
+    view : string
+  💾 samples/resolve-series.json
+  线路明细:
+    - play_from=lv2 label=1080P-官方Z url_kind=resolve_ticket resolved=false req=true
+    - play_from=huo label=1080P-官方V url_kind=resolve_ticket resolved=false req=true
+    - play_from=bytedance label=高清-官方B url_kind=resolve_ticket resolved=false req=true
+    - play_from=lv3 label=1080P-官方S url_kind=resolve_ticket resolved=false req=true
+    - play_from=rrys label=1080P-官方R url_kind=resolve_ticket resolved=false req=true
+    - play_from=cloudflare label=海外-官方C url_kind=resolve_ticket resolved=false req=true
+    - play_from=qq label=腾讯视频 url_kind=resolve_ticket resolved=false req=true
+    - play_from=wsym3u8 label=无水印资源 url_kind=m3u8 resolved=true req=false
+    - play_from=hnm3u8 label=红牛资源 url_kind=m3u8 resolved=true req=false
+    - play_from=xlm3u8 label=新浪资源 url_kind=m3u8 resolved=true req=false
+    - play_from=xiguam3u8 label=西瓜资源 url_kind=m3u8 resolved=true req=false
+    - play_from=modum3u8 label=魔都资源 url_kind=m3u8 resolved=true req=false
+    - play_from=jsm3u8 label=极速资源 url_kind=m3u8 resolved=true req=false
+    - play_from=1080zyk label=1080zyk url_kind=m3u8 resolved=true req=false
+    - play_from=hhm3u8 label=豪华资源 url_kind=m3u8 resolved=true req=false
+    - play_from=dbm3u8 label=豆瓣资源 url_kind=m3u8 resolved=true req=false
+    - play_from=ikm3u8 label=ikun资源 url_kind=m3u8 resolved=true req=false
+    - play_from=iqym3u8 label=iqiyi资源 url_kind=m3u8 resolved=true req=false
+    - play_from=bfzym3u8 label=暴风资源 url_kind=m3u8 resolved=true req=false
+    - play_from=wjm3u8 label=无尽资源 url_kind=m3u8 resolved=true req=false
+    - play_from=dyttm3u8 label=电影天堂资源 url_kind=m3u8 resolved=true req=false
+    - play_from=mtm3u8 label=茅台资源 url_kind=m3u8 resolved=true req=false
+    - play_from=subm3u8 label=速播资源 url_kind=m3u8 resolved=true req=false
+    - play_from=ukm3u8 label=U酷资源 url_kind=m3u8 resolved=true req=false
+    - play_from=jinyingm3u8 label=金鹰资源 url_kind=m3u8 resolved=true req=false
+    - play_from=mym3u8 label=猫眼资源 url_kind=m3u8 resolved=true req=false
+    - play_from=snm3u8 label=索尼资源 url_kind=m3u8 resolved=true req=false
+    - play_from=nnm3u8 label=牛牛资源 url_kind=m3u8 resolved=true req=false
+    - play_from=360zy label=360资源 url_kind=m3u8 resolved=true req=false
+    - play_from=zuidam3u8 label=最大资源 url_kind=m3u8 resolved=true req=false
+    - play_from=ffm3u8 label=非凡资源 url_kind=m3u8 resolved=true req=false
+    - play_from=rym3u8 label=如意资源 url_kind=m3u8 resolved=true req=false
+
+【6】Suggest
+
+▶ suggest-cn
+  /v1/suggest?q=%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83&limit=20
+  ✅ 8 条建议 (204ms)
+  结构 (48 个字段):
+    generated_at : string
+    object : string
+    query : string
+    suggestions[] : array(8)
+    suggestions[].action : object
+    suggestions[].action.prompt : string
+    suggestions[].action.type : string
+    suggestions[].confidence : number
+    suggestions[].id : string
+    suggestions[].intent : string
+    suggestions[].label : string
+    suggestions[].plan : object
+    suggestions[].plan.candidate_limit : number
+    suggestions[].plan.confidence : number
+    suggestions[].plan.confidence_reason : string
+    suggestions[].plan.diversity : number
+    suggestions[].plan.exclude_areas[] : array(0)
+    suggestions[].plan.exclude_genres[] : array(0)
+    suggestions[].plan.exclude_ids[] : array(0)
+    suggestions[].plan.exclude_kinds[] : array(0)
+    suggestions[].plan.exclude_seen : boolean
+    suggestions[].plan.explore_ratio : number
+    suggestions[].plan.intent : string
+    suggestions[].plan.kind : string
+    suggestions[].plan.limit : number
+    suggestions[].plan.page : number
+    suggestions[].plan.playable : boolean
+    suggestions[].plan.quality : string
+    suggestions[].plan.query : string
+    suggestions[].plan.recall_branches[] : array(0)
+    suggestions[].plan.refresh_index : number
+    suggestions[].plan.rule_matches[] : array(0)
+    suggestions[].plan.scenario : string
+    suggestions[].plan.search_fields : string
+    suggestions[].plan.semantic : boolean
+    suggestions[].plan.steps[] : array(1)
+    suggestions[].plan.use_tmdb : boolean
+    suggestions[].plan.use_websearch : boolean
+    suggestions[].plan.year : number
+    suggestions[].prompt : string
+    suggestions[].score : number
+    suggestions[].source : string
+    suggestions[].subtitle : string
+    suggestions[].target : object
+    suggestions[].target.direct_playable : boolean
+    suggestions[].target.title : string
+    suggestions[].target.variant_id : string
+    suggestions[].type : string
+  💾 samples/suggest-cn.json
+
+▶ suggest-en
+  /v1/suggest?q=Interstellar&limit=20
+  ✅ 5 条建议 (177ms)
+  结构 (48 个字段):
+    generated_at : string
+    object : string
+    query : string
+    suggestions[] : array(5)
+    suggestions[].action : object
+    suggestions[].action.prompt : string
+    suggestions[].action.type : string
+    suggestions[].confidence : number
+    suggestions[].id : string
+    suggestions[].intent : string
+    suggestions[].label : string
+    suggestions[].plan : object
+    suggestions[].plan.candidate_limit : number
+    suggestions[].plan.confidence : number
+    suggestions[].plan.confidence_reason : string
+    suggestions[].plan.diversity : number
+    suggestions[].plan.exclude_areas[] : array(0)
+    suggestions[].plan.exclude_genres[] : array(0)
+    suggestions[].plan.exclude_ids[] : array(0)
+    suggestions[].plan.exclude_kinds[] : array(0)
+    suggestions[].plan.exclude_seen : boolean
+    suggestions[].plan.explore_ratio : number
+    suggestions[].plan.intent : string
+    suggestions[].plan.kind : string
+    suggestions[].plan.limit : number
+    suggestions[].plan.page : number
+    suggestions[].plan.playable : boolean
+    suggestions[].plan.quality : string
+    suggestions[].plan.query : string
+    suggestions[].plan.recall_branches[] : array(0)
+    suggestions[].plan.refresh_index : number
+    suggestions[].plan.rule_matches[] : array(0)
+    suggestions[].plan.scenario : string
+    suggestions[].plan.search_fields : string
+    suggestions[].plan.semantic : boolean
+    suggestions[].plan.steps[] : array(1)
+    suggestions[].plan.use_tmdb : boolean
+    suggestions[].plan.use_websearch : boolean
+    suggestions[].plan.year : number
+    suggestions[].prompt : string
+    suggestions[].score : number
+    suggestions[].source : string
+    suggestions[].subtitle : string
+    suggestions[].target : object
+    suggestions[].target.direct_playable : boolean
+    suggestions[].target.title : string
+    suggestions[].target.variant_id : string
+    suggestions[].type : string
+  💾 samples/suggest-en.json
+
+▶ suggest-none
+  /v1/suggest?q=zzzznotexist999&limit=20
+  ✅ 3 条（预期 0） (211ms)
+  结构 (43 个字段):
+    generated_at : string
+    object : string
+    query : string
+    suggestions[] : array(3)
+    suggestions[].action : object
+    suggestions[].action.prompt : string
+    suggestions[].action.type : string
+    suggestions[].confidence : number
+    suggestions[].id : string
+    suggestions[].intent : string
+    suggestions[].label : string
+    suggestions[].plan : object
+    suggestions[].plan.candidate_limit : number
+    suggestions[].plan.confidence : number
+    suggestions[].plan.confidence_reason : string
+    suggestions[].plan.diversity : number
+    suggestions[].plan.exclude_areas[] : array(0)
+    suggestions[].plan.exclude_genres[] : array(0)
+    suggestions[].plan.exclude_ids[] : array(0)
+    suggestions[].plan.exclude_kinds[] : array(0)
+    suggestions[].plan.exclude_seen : boolean
+    suggestions[].plan.explore_ratio : number
+    suggestions[].plan.intent : string
+    suggestions[].plan.kind : string
+    suggestions[].plan.limit : number
+    suggestions[].plan.page : number
+    suggestions[].plan.playable : boolean
+    suggestions[].plan.quality : string
+    suggestions[].plan.query : string
+    suggestions[].plan.recall_branches[] : array(0)
+    suggestions[].plan.refresh_index : number
+    suggestions[].plan.rule_matches[] : array(0)
+    suggestions[].plan.scenario : string
+    suggestions[].plan.search_fields : string
+    suggestions[].plan.semantic : boolean
+    suggestions[].plan.steps[] : array(1)
+    suggestions[].plan.use_tmdb : boolean
+    suggestions[].plan.use_websearch : boolean
+    suggestions[].prompt : string
+    suggestions[].score : number
+    suggestions[].source : string
+    suggestions[].subtitle : string
+    suggestions[].type : string
+  💾 samples/suggest-none.json
+
+═══════════════════════════════════════════════════
+  总计 24 | ✅ 24 | ❌ 0
+═══════════════════════════════════════════════════
+
+样本已保存到: /Users/wangqifei/Documents/stremio_addons/dongpaindiStremio/samples
+建议: samples/ 目录加入 .gitignore，或提交作为接口快照

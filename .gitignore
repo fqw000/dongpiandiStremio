@@ -2,5 +2,13 @@
 node_modules
 .vercel
 .env
-.env*.local
+.local
 .DS_Store
+dpd.py
+verify-sign.mjs
+.mjs
+.env*
+.env.local
+.env.*.local
+.env.vercel.local
+samples/

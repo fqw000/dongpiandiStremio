@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>懂片帝 · Stremio Addon 配置</title>
+  <link rel="stylesheet" href="/configure.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo"><img src="https://dongpian17.com/assets/app-icon-180.png?v=20260829-dongpiandi-logo-v2" alt="懂片帝"></div>
+      <h1>懂片帝</h1>
+      <p class="subtitle">Stremio Addon · 配置向导</p>
+    </header>
+
+    <section class="card">
+      <h2><span class="icon">📦</span> 基本信息</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">名称</span>
+          <span class="value">懂片帝</span>
+        </div>
+        <div class="info-item">
+          <span class="label">版本</span>
+          <span class="value">1.0.0</span>
+        </div>
+        <div class="info-item">
+          <span class="label">资源</span>
+          <span class="value">目录 · 元数据 · 流媒体</span>
+        </div>
+        <div class="info-item">
+          <span class="label">支持</span>
+          <span class="value">电影 · 电视剧 · 短剧 · 动漫 · 综艺 · 纪录片</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="icon">⚙️</span> 高级配置</h2>
+      <p class="hint">全部为可选项，不填则使用默认值</p>
+
+      <div class="form-group">
+        <label for="baseDomain">
+          懂片帝域名
+          <span class="optional">可选</span>
+        </label>
+        <input
+          type="text"
+          id="baseDomain"
+          placeholder="dongpian20.com"
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <span class="form-hint">
+          站点域名变更时可修改，留空使用默认 <code>dongpian20.com</code>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="tmdbApiKey">
+          TMDB API Key
+          <span class="optional">可选</span>
+        </label>
+        <div class="input-with-toggle">
+          <input
+            type="password"
+            id="tmdbApiKey"
+            placeholder="留空使用内置 Key"
+            spellcheck="false"
+            autocomplete="off"
+          />
+          <button type="button" id="toggleTmdbKey" class="toggle-btn" title="显示/隐藏">👁</button>
+        </div>
+        <span class="form-hint">
+          用于 IMDb 解析，留空使用内置 Key。填自己的可避免公共 Key 限流
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="blockedLines">
+          线路黑名单
+          <span class="optional">可选</span>
+        </label>
+        <textarea
+          id="blockedLines"
+          placeholder="牛牛资源&#10;极速资源&#10;最大资源"
+          spellcheck="false"
+          autocomplete="off"
+          rows="4"
+        ></textarea>
+        <span class="form-hint">
+          每行一个线路名，匹配到的线路不显示在播放列表中。<br>
+          维护建议：运行 <code>node health.js</code> 检测长期 404/402 的线路，填入此处。
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="buildVersion">
+          Build Version
+          <span class="optional">可选</span>
+        </label>
+        <input
+          type="text"
+          id="buildVersion"
+          placeholder="dongpiandi-v2026.09.30.1-dbb1f9857565-web"
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <span class="form-hint">
+          站点前端发版后签名校验失败时可修改。留空使用默认值。<br>
+          获取方式：浏览器 F12 → Network → 任意 /v1 请求 → 查看 <code>x-ai-movie-build-version</code> 头。
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="sessionCookie">
+          懂片帝登录 Cookie
+          <span class="optional">可选</span>
+        </label>
+        <div class="input-with-toggle">
+          <input
+            type="password"
+            id="sessionCookie"
+            placeholder="ums2_2026-08.eyJ2Ijox..."
+            spellcheck="false"
+            autocomplete="off"
+          />
+          <button type="button" id="toggleCookie" class="toggle-btn" title="显示/隐藏">👁</button>
+        </div>
+        <span class="form-hint">
+          配置后可播放官方高清线路（resolve 解析）。<br>
+          获取方式：浏览器登录站点 → F12 → Application → Cookies → 复制 <code>ai_movie_session</code> 的<strong>完整值</strong>（必须以 <code>ums_</code> 或 <code>ums2_</code> 开头）<br>
+          有效期约 1 年，失效后重新复制即可。不配置则只能播放 m3u8 采集线路。
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>
+          支持的类型
+          <span class="optional">可选</span>
+        </label>
+        <div class="checkbox-grid">
+          <label class="checkbox-item">
+            <input type="checkbox" class="category-cb" value="movie" checked />
+            <span>🎬 电影</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" class="category-cb" value="series" checked />
+            <span>📺 电视剧</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" class="category-cb" value="short" checked />
+            <span>📱 短剧</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" class="category-cb" value="anime" checked />
+            <span>🎨 动漫</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" class="category-cb" value="variety" checked />
+            <span>🎤 综艺</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" class="category-cb" value="documentary" checked />
+            <span>📖 纪录片</span>
+          </label>
+        </div>
+        <span class="form-hint">
+          只显示勾选的类型，取消勾选可减少目录数量
+        </span>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" id="enableImdb" checked />
+          <span class="checkbox-text">
+            <strong>启用 IMDb 解析</strong>
+            <small>支持通过 tt 格式的 ID 播放（与其他 Addon 互通）</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" id="enableStream" checked />
+          <span class="checkbox-text">
+            <strong>启用 Stream 流媒体功能</strong>
+            <small>关闭后 Addon 仅提供目录和元数据，不返回播放地址</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" id="enableDebug" />
+          <span class="checkbox-text">
+            <strong>启用 Debug 日志</strong>
+            <small>服务端输出详细日志，仅用于排查问题</small>
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <button id="generateBtn" class="btn btn-primary btn-large">
+        <span class="icon">🚀</span>
+        生成安装链接
+      </button>
+      <button id="resetBtn" class="btn btn-secondary btn-large">
+        <span class="icon">🔄</span>
+        重置为默认
+      </button>
+    </section>
+
+    <section class="card result-card" id="resultCard">
+      <h2><span class="icon">🔗</span> 安装链接</h2>
+
+      <div class="url-box">
+        <input type="text" id="manifestUrl" readonly />
+        <button id="copyBtn" class="copy-btn" title="复制链接">📋</button>
+      </div>
+
+      <div class="actions">
+        <a id="installBtn" class="btn btn-primary" href="#">
+          <span class="icon">📲</span>
+          安装到 Stremio
+        </a>
+        <button id="webInstallBtn" class="btn btn-secondary">
+          <span class="icon">🌐</span>
+          通过 Web 安装
+        </button>
+      </div>
+
+      <div class="qr-section">
+        <p class="hint">扫描二维码在手机 Stremio 中安装</p>
+        <div id="qrcode"></div>
+      </div>
+
+      <details class="config-preview">
+        <summary><span class="icon">▼</span> 查看配置内容</summary>
+        <pre id="configPreview"></pre>
+      </details>
+    </section>
+
+    <footer>
+      <p>MIT License · Made with ❤️ for Stremio Community</p>
+      <p class="version">v1.0.0</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="/configure.js"></script>
+</body>
+</html>
