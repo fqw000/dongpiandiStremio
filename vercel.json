@@ -1,7 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/configure", "destination": "/configure.html" },
-    { "source": "/configure/", "destination": "/configure.html" },
-    { "source": "/(.*)", "destination": "/api/index" }
-  ]
-}

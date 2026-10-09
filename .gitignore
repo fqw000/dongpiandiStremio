@@ -12,3 +12,4 @@ verify-sign.mjs
 .env.*.local
 .env.vercel.local
 samples/
+log.txt
