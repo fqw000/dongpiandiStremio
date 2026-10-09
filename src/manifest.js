@@ -55,9 +55,9 @@ export function generateManifest(options = {}) {
   const manifest = {
     id: 'com.dongpiandi.stremio',
     version: '1.0.0',
-    name: '懂片帝',
+    name: 'gpd',
     description: '懂片帝影视资源站 · 支持电影、电视剧、短剧、动漫、综艺、纪录片。兼容站内 ID 与 IMDb ID。仅供学习研究使用。',
-    logo: 'https://dongpian20.com/favicon.ico',
+    logo: 'https://dongpian17.com/favicon.ico',
     resources,
     types: ['movie', 'series'],
     catalogs,
